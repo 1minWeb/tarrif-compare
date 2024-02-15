@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tariff Comparison</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Compare tariffs and find the best plan for your needs.">
+  <meta name="keywords" content="tariff comparison, pricing, plans, per day cost">
+  <meta name="author" content="Your Name">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Tariff Comparison">
+  <meta property="og:description" content="Compare tariffs and find the best plan for your needs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://example.com/og-image.jpg">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@YourTwitterHandle">
+  <meta name="twitter:title" content="Tariff Comparison">
+  <meta name="twitter:description" content="Compare tariffs and find the best plan for your needs.">
+  <meta name="twitter:image" content="https://example.com/twitter-image.jpg">
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 0.3s;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      --text-color-light: rgb(0, 0, 0);
+      --text-color-dark: #ffffff;
+    }
+
+    body.dark-mode {
+      background: linear-gradient(to right, #434343, #000000);
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow: auto;
+      margin: 25px;
+    }
+
+    .side {
+      padding: 20px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      transition: border 0.3s;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+width:80%;
+margin:20px;
+
+    }
+
+    .side:hover {
+      border: 2px solid #3498db;
+    }
+
+    input {
+      width: calc(100% - 16px);
+      margin-bottom: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #result {
+      font-size: large;
+      color: var(--text-color-light);
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .green {
+      color: green;
+    }
+
+    #addPlanBtn {
+      font-size: 1em;
+      padding: 10px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    #addPlanBtn:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="side" id="side1">
+      <h2>Plan 1</h2>
+      <label for="tariff1">Tariff Price:</label>
+      <input type="number" class="tariff" placeholder="Enter tariff price">
+      <label for="days1">Number of Days:</label>
+      <input type="number" class="days" placeholder="Enter number of days">
+    </div>
+
+    <div id="result"></div>
+
+    <button id="addPlanBtn" onclick="addPlan()">Add Plan</button>
+  </div>
+
+  <script>
+    function calculatePerDay() {
+      const plans = document.querySelectorAll('.side');
+      let resultHtml = 'Per Day Cost:';
+      let lowestPerDay = Infinity;
+      let lowestPlanIndex = -1;
+
+      plans.forEach((plan, index) => {
+        const tariff = parseFloat(plan.querySelector('.tariff').value) || 0;
+        const days = parseFloat(plan.querySelector('.days').value) || 1;
+        const perDay = tariff / days;
+
+        resultHtml += `<br>Plan ${index + 1}: <span class="${perDay < lowestPerDay ? 'green' : ''}">${perDay.toFixed(2)}</span>`;
+        if (perDay < lowestPerDay) {
+          lowestPerDay = perDay;
+          lowestPlanIndex = index;
+        }
+      });
+
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = resultHtml;
+
+      plans.forEach((plan, index) => {
+        plan.style.fontWeight = index === lowestPlanIndex ? 'bold' : 'normal';
+      });
+    }
+
+    function addPlan() {
+      const container = document.getElementById('container');
+      const newPlan = document.createElement('div');
+      newPlan.classList.add('side');
+      newPlan.innerHTML = `
+        <h2>Plan ${document.querySelectorAll('.side').length + 1}</h2>
+        <label for="tariff">Tariff Price:</label>
+        <input type="number" class="tariff" placeholder="Enter tariff price">
+        <label for="days">Number of Days:</label>
+        <input type="number" class="days" placeholder="Enter number of days">
+      `;
+      container.insertBefore(newPlan, document.getElementById('result'));
+    }
+
+    // Attach the calculatePerDay function to input changes
+    document.addEventListener('input', calculatePerDay);
+  </script>
+</body>
+
+</html>
