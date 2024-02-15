@@ -31,7 +31,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       transition: background-color 0.3s;
       background: linear-gradient(to right, #74ebd5, #ACB6E5);
@@ -46,9 +46,16 @@
     #container {
       display: flex;
       flex-direction: column;
-      width: 100%;
+      align-items: center;
+      width: 80%;
+      max-width: 400px;
       overflow: auto;
       margin: 25px;
+      background-color: rgba(0, 0, 0, 0.05); /* Adjust the rgba values for darkness and translucency */
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .side {
@@ -57,12 +64,9 @@
       margin-bottom: 20px;
       transition: border 0.3s;
       border-radius: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.02); /* Adjust the rgba values for darkness and translucency */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-width:80%;
-margin:20px;
-
+      width: 100%;
     }
 
     .side:hover {
@@ -77,6 +81,7 @@ margin:20px;
       border: 1px solid #ddd;
       border-radius: 5px;
       font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     #result {
